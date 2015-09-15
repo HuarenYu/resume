@@ -2727,6 +2727,9 @@ Copyright (c) 2015 Daniel Eden
   padding: 0;
   margin: 0; }
 
+.slide .slide-item .slide-sub-item .content p.indent {
+  text-indent: 2em; }
+
 .slide .slide-item .slide-sub-item .content a {
   color: #fff;
   text-decoration: none; }
@@ -2742,7 +2745,7 @@ Copyright (c) 2015 Daniel Eden
   padding: 10px;
   border-radius: 10px;
   cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.33); }
+  background-color: rgba(0, 0, 0, 0.33); }
 
 .card {
   padding: 10px;
