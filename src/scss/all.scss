@@ -58,13 +58,18 @@
     }
     .slide-trigger {
         position: fixed;
-        bottom: 10px;
-        right: 10px;
         color: #fff;
         padding: 10px;
         border-radius: 10px;
         cursor: pointer;
         background-color: rgba(0, 0, 0, .33);
+        bottom: 10px;
+        &.slide-trigger-left {
+            left: 10px;
+        }
+        &.slide-trigger-right {
+            right: 10px;
+        }
     }
 }
 

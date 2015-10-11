@@ -2739,13 +2739,18 @@ Copyright (c) 2015 Daniel Eden
 
 .slide .slide-trigger {
   position: fixed;
-  bottom: 10px;
-  right: 10px;
   color: #fff;
   padding: 10px;
   border-radius: 10px;
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.33); }
+  background-color: rgba(0, 0, 0, 0.33);
+  bottom: 10px; }
+
+.slide .slide-trigger.slide-trigger-left {
+  left: 10px; }
+
+.slide .slide-trigger.slide-trigger-right {
+  right: 10px; }
 
 .card {
   padding: 10px;

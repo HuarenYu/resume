@@ -7,9 +7,12 @@
         this.index = 0;
         this.length = this.items.length;
         this.slideInClass = 'animated slideInLeft';
-        this.slideOutClass = 'animated zoomOut';
+        this.zoomOutClass = 'animated zoomOut';
+        this.slideOutClass = 'animated slideOutLeft';
+        this.zoomInClass = 'animated zoomIn';
         util.addClass(this.items[0], 'active ' + this.slideInClass);
         this._listen();
+        this.isAnimating = false;
     }
 
     Slide.prototype._listen = function() {
@@ -24,41 +27,64 @@
                 e.preventDefault();
             }
         }, false);
-        this.el.querySelector('.slide-trigger')
+        this
+        .el
+        .querySelector('.slide-trigger-right')
         .addEventListener('click', function(e) {
             that.next();
         });
+        this
+        .el
+        .querySelector('.slide-trigger-left')
+        .addEventListener('click', function(e) {
+            that.prev();
+        });
+    };
+
+    Slide.prototype._clearAnimateStyle = function(el) {
+        util.removeClass(el, this.slideInClass);
+        util.removeClass(el, this.slideOutClass);
+        util.removeClass(el, this.zoomOutClass);
+        util.removeClass(el, this.zoomInClass);
     };
 
     Slide.prototype.next = function() {
+        if (this.isAnimating) return;
+        this.isAnimating = true;
         var lastIndex = this.index;
         var currentIndex = ++this.index;
-        util.removeClass(this.items[lastIndex], this.slideInClass);
-        util.addClass(this.items[lastIndex], this.slideOutClass);
+        this._clearAnimateStyle(this.items[lastIndex]);
+        util.addClass(this.items[lastIndex], this.zoomOutClass);
         if (currentIndex === this.length) {
             this.index = 0;
             currentIndex = 0;
         }
         util.addClass(this.items[currentIndex], 'active ' + this.slideInClass);
         var that = this;
-        var t = setTimeout(function() {
-            util.removeClass(that.items[lastIndex], 'active ' + that.slideOutClass);
+        setTimeout(function() {
+            that._clearAnimateStyle(that.items[lastIndex]);
+            util.removeClass(that.items[lastIndex], 'active');
+            that.isAnimating = false;
         }, 1000);
     };
 
     Slide.prototype.prev = function() {
+        if (this.isAnimating) return;
+        this.isAnimating = true;
         var lastIndex = this.index;
         var currentIndex = --this.index;
-        util.removeClass(this.items[lastIndex], this.slideInClass);
+        this._clearAnimateStyle(this.items[lastIndex]);
         util.addClass(this.items[lastIndex], this.slideOutClass);
         if (currentIndex === -1) {
             this.index = this.length - 1;
             currentIndex = this.length - 1;
         }
-        util.addClass(this.items[currentIndex], 'active ' + this.slideInClass);
+        util.addClass(this.items[currentIndex], 'active ' + this.zoomInClass);
         var that = this;
-        var t = setTimeout(function() {
-            util.removeClass(that.items[lastIndex], 'active ' + that.slideOutClass);
+        setTimeout(function() {
+            that._clearAnimateStyle(that.items[lastIndex]);
+            util.removeClass(that.items[lastIndex], 'active');
+            that.isAnimating = false;
         }, 1000);
     };
 
